@@ -20,9 +20,7 @@
 
 ## Pre-trained model
 
-测试时所使用的预训练COCO模型来自https://download.01.org/opencv/openvino_training_extensions/models/human_pose_estimation/checkpoint_iter_370000.pth
-
-并将该模型放在`/checkpoint`目录下（该目录需要用户自己创建）
+测试时所使用的预训练COCO模型来自https://download.01.org/opencv/openvino_training_extensions/models/human_pose_estimation/checkpoint_iter_370000.pth，下载好的模型保存在`/checkpoint`目录下（该目录需要用户自己创建）
 
 ## Data
 
