@@ -1,0 +1,3 @@
+pycocotools>=2.0.0
+opencv-python>=3.4.0.14
+pyrealsense2>=2.50.0
