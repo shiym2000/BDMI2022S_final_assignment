@@ -61,12 +61,12 @@ class Pose:
             if global_kpt_a_id != -1 and global_kpt_b_id != -1:
                 cv2.line(img, (int(x_a), int(y_a)), (int(x_b), int(y_b)), Pose.color, 2)
 
-    def res(self, img, Height, y, rg):
-        return abs(y - Height) < rg
+    # def res(self, img, Height, y, rg):
+    #     return abs(y - Height) < rg
 
-    def pheight(self, Point):
-        height = self.keypoints[Point]
-        return height
+    # def pheight(self, Point):
+    #     height = self.keypoints[Point]
+    #     return height
 
 def get_similarity(a, b, threshold=0.5):
     num_similar_kpt = 0
