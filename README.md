@@ -31,7 +31,7 @@
 ### 离线测试
 
 ```shell
-python demo.py --checkpoint-path checkpoint/checkpoint_iter_370000.pth --inputbag data/12-1-1280.bag
+python demo.py --checkpoint-path checkpoint/checkpoint_iter_370000.pth --realsense data/12-1-1280.bag
 ```
 
 ### 在线测试
@@ -39,5 +39,5 @@ python demo.py --checkpoint-path checkpoint/checkpoint_iter_370000.pth --inputba
 ```shell
 # 尚未进行场景测试
 # To do...
-python demo.py --checkpoint-path checkpoint/checkpoint_iter_370000.pth --realsense
+python demo.py --checkpoint-path checkpoint/checkpoint_iter_370000.pth --realsense 0
 ```
