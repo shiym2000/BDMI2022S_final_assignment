@@ -37,7 +37,5 @@ python demo.py --checkpoint-path checkpoint/checkpoint_iter_370000.pth --realsen
 ### 在线测试
 
 ```shell
-# 尚未进行场景测试
-# To do...
 python demo.py --checkpoint-path checkpoint/checkpoint_iter_370000.pth --realsense 0
 ```

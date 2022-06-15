@@ -13,6 +13,15 @@ from modules.load_state import load_state
 from modules.pose import Pose
 from val import normalize, pad_width
 
+BAR_HEIGHT = 180
+BAR_WIDTH = 40
+TOPLIMIT_CENTER = 185
+TOPLIMIT_WIDTH = 40
+LOWERLIMIT_OFFSET = 30
+LOWERLIMIT_WIDTH = 35
+BASELINE_OFFSET = 45
+IF_DRAW_LINE = 1
+IF_DRAW_STATE = 1
 
 class VideoReader(object):
     def __init__(self, file_name):
@@ -165,10 +174,10 @@ def gui_pullup_args(pullup_args):
         pullup_args.toplimit_width = int(v)
     def func_scale_baseline_offset(v):
         pullup_args.baseline_offset = int(v)
-    def func_scale_lowerlimt_offset(v):
-        pullup_args.lowerlimt_offset = int(v)
-    def func_scale_lowerlimt_width(v):
-        pullup_args.lowerlimt_width = int(v)
+    def func_scale_lowerlimit_offset(v):
+        pullup_args.lowerlimit_offset = int(v)
+    def func_scale_lowerlimit_width(v):
+        pullup_args.lowerlimit_width = int(v)
     def func_button_if_draw_line():
         if pullup_args.if_draw_line:
             pullup_args.if_draw_line = 0
@@ -196,9 +205,9 @@ def gui_pullup_args(pullup_args):
     label_explanation2.place(x=650, y=181)
     label_explanation3 = tkinter.Label(text = "完成一个上升的标志为肩膀高度进入[toplimit_center-toplimit_width, toplimit_center_toplimit_width]区间")
     label_explanation3.place(x=650, y=251)
-    label_explanation4 = tkinter.Label(text = "完成一个下降的标志为肩膀高度进入[lowerlimt_center-lowerlimt_width, lowerlimt_center+lowerlimt_width]区间")
+    label_explanation4 = tkinter.Label(text = "完成一个下降的标志为肩膀高度进入[lowerlimit_center-lowerlimit_width, lowerlimit_center+lowerlimit_width]区间")
     label_explanation4.place(x=650, y=321)
-    label_explanation5 = tkinter.Label(text = "其中lowerlimt_center = baseline - lowerlimt_offset")
+    label_explanation5 = tkinter.Label(text = "其中lowerlimit_center = baseline - lowerlimit_offset")
     label_explanation5.place(x=650, y=391)
 
     button_if_draw_line = tkinter.Button(window, text="不显示测试曲线", command=func_button_if_draw_line)
@@ -211,49 +220,49 @@ def gui_pullup_args(pullup_args):
     scale_bar_height = tkinter.Scale(window, from_=0, to=960, orient='horizonta', tickinterval=100, length=500, 
                                      command=func_scale_bar_height)
     scale_bar_height.place(x=130, y=20)
-    scale_bar_height.set(value=130)
+    scale_bar_height.set(value=BAR_HEIGHT)
 
     label_bar_width = tkinter.Label(text = "bar_width")
     label_bar_width.place(x=20, y=111)
     scale_bar_width = tkinter.Scale(window, from_=0, to=960, orient='horizonta', tickinterval=100, length=500,
                                     command=func_scale_bar_width)
     scale_bar_width.place(x=130, y=90)
-    scale_bar_width.set(value=40)
+    scale_bar_width.set(value=BAR_WIDTH)
 
     label_toplimit_center = tkinter.Label(text = "toplimit_center")
     label_toplimit_center.place(x=20, y=181)
     scale_toplimit_center = tkinter.Scale(window, from_=0, to=960, orient='horizonta', tickinterval=100, length=500,
                                           command=func_scale_toplimit_center)
     scale_toplimit_center.place(x=130, y=160)
-    scale_toplimit_center.set(value=135)
+    scale_toplimit_center.set(value=TOPLIMIT_CENTER)
 
     label_toplimit_width = tkinter.Label(text = "toplimit_width")
     label_toplimit_width.place(x=20, y=251)
     scale_toplimit_width = tkinter.Scale(window, from_=0, to=960, orient='horizonta', tickinterval=100, length=500,
                                          command=func_scale_toplimit_width)
     scale_toplimit_width.place(x=130, y=230)
-    scale_toplimit_width.set(value=40)
+    scale_toplimit_width.set(value=TOPLIMIT_WIDTH)
 
     label_baseline_offset = tkinter.Label(text = "baseline_offset")
     label_baseline_offset.place(x=20, y=321)
     scale_baseline_offset = tkinter.Scale(window, from_=0, to=960, orient='horizonta', tickinterval=100, length=500,
                                           command=func_scale_baseline_offset)
     scale_baseline_offset.place(x=130, y=300)
-    scale_baseline_offset.set(value=55)
+    scale_baseline_offset.set(value=BASELINE_OFFSET)
 
-    label_lowerlimt_offset = tkinter.Label(text = "lowerlimt_offset")
-    label_lowerlimt_offset.place(x=20, y=391)
-    scale_lowerlimt_offset = tkinter.Scale(window, from_=0, to=960, orient='horizonta', tickinterval=100, length=500,
-                                           command=func_scale_lowerlimt_offset)
-    scale_lowerlimt_offset.place(x=130, y=370)
-    scale_lowerlimt_offset.set(value=40)
+    label_lowerlimit_offset = tkinter.Label(text = "lowerlimit_offset")
+    label_lowerlimit_offset.place(x=20, y=391)
+    scale_lowerlimit_offset = tkinter.Scale(window, from_=0, to=960, orient='horizonta', tickinterval=100, length=500,
+                                           command=func_scale_lowerlimit_offset)
+    scale_lowerlimit_offset.place(x=130, y=370)
+    scale_lowerlimit_offset.set(value=LOWERLIMIT_OFFSET)
 
-    label_lowerlimt_width = tkinter.Label(text = "lowerlimt_width")
-    label_lowerlimt_width.place(x=20, y=461)
-    scale_lowerlimt_width = tkinter.Scale(window, from_=0, to=960, orient='horizonta', tickinterval=100, length=500, 
-                                          command=func_scale_lowerlimt_width)
-    scale_lowerlimt_width.place(x=130, y=440)
-    scale_lowerlimt_width.set(value=35)
+    label_lowerlimit_width = tkinter.Label(text = "lowerlimit_width")
+    label_lowerlimit_width.place(x=20, y=461)
+    scale_lowerlimit_width = tkinter.Scale(window, from_=0, to=960, orient='horizonta', tickinterval=100, length=500, 
+                                          command=func_scale_lowerlimit_width)
+    scale_lowerlimit_width.place(x=130, y=440)
+    scale_lowerlimit_width.set(value=LOWERLIMIT_WIDTH)
 
     window.mainloop()
 
@@ -391,23 +400,20 @@ if __name__ == '__main__':
     elif args.video:
         demo_video(net, args.video, args.height_size, args.cpu)
     elif args.realsense:
-        pullup_args = PullupArgs(bar_height=130,
-                             bar_width=40,
-                             toplimit_center=135,
-                             toplimit_width=40,
-                             lowerlimit_offset=40,
-                             lowerlimit_width=35,
-                             baseline_offset=55,
-                             if_draw_line=1,
-                             if_draw_state=1,
-                            )
+        pullup_args = PullupArgs(bar_height=BAR_HEIGHT,
+                                 bar_width=BAR_WIDTH,
+                                 toplimit_center=TOPLIMIT_CENTER,
+                                 toplimit_width=TOPLIMIT_WIDTH,
+                                 lowerlimit_offset=LOWERLIMIT_OFFSET,
+                                 lowerlimit_width=LOWERLIMIT_WIDTH,
+                                 baseline_offset=BASELINE_OFFSET,
+                                 if_draw_line=IF_DRAW_LINE,
+                                 if_draw_state=IF_DRAW_STATE)
         realsense_path = None if args.realsense == '0' else args.realsense
         thread_gui_pullup_args = threading.Thread(target=gui_pullup_args, args=(pullup_args,))
         thread_demo_realsense = threading.Thread(target=demo_realsense, args=(net, args.height_size, args.cpu, pullup_args, realsense_path))
         thread_gui_pullup_args.start()
         thread_demo_realsense.start()
-        # demo_realsense(net, args.height_size, args.cpu, pullup_args, args.realsense_file)
+        # demo_realsense(net, args.height_size, args.cpu, pullup_args, realsense_path)
     else:
         raise ValueError('No source has to be provided!')
-
-    # python demo_decouple.py --checkpoint-path checkpoint/checkpoint_iter_370000.pth --realsense data/12-1-1280.bag
